@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:roaia/localization/localization_methods.dart';
+import 'package:roaia/providers/user_provider.dart';
 import 'package:roaia/screen/Forget_Password.dart';
 import 'package:roaia/screen/botton_bar.dart';
 import 'package:roaia/screen/sign_Up.dart';
@@ -129,6 +131,8 @@ class Login_Screen extends StatelessWidget {
                             password: passwordController.text)
                         .then((value) {
                       if (value.success) {
+                        Provider.of<UserProvider>(context, listen: false)
+                            .setUser(value.data!);
                         Navigator.of(context).push(MaterialPageRoute(
                           builder: (context) => const Botton_Bar(),
                         ));

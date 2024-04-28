@@ -15,6 +15,9 @@ class Add_Contact_Screen extends StatefulWidget {
 class _Add_Contact_ScreenState extends State<Add_Contact_Screen> {
   File? image;
   final imagePicker = ImagePicker();
+  final nameController = TextEditingController();
+  final ageController = TextEditingController();
+  final relationController = TextEditingController();
 
   TakeImage() async {
     var pickedImage = await imagePicker.pickImage(source: ImageSource.camera);
@@ -39,12 +42,12 @@ class _Add_Contact_ScreenState extends State<Add_Contact_Screen> {
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
-            onPressed: (){
+            onPressed: () {
               Navigator.pop(context);
             },
             icon: const Icon(Icons.arrow_back_ios_new)),
         title: Text(
-         tr("add_contact", context),
+          tr("add_contact", context),
           style: const TextStyle(
               fontSize: 18,
               fontWeight: FontWeight.w700,
@@ -73,6 +76,7 @@ class _Add_Contact_ScreenState extends State<Add_Contact_Screen> {
                 height: 10,
               ),
               TextFormField(
+                controller: nameController,
                 decoration: InputDecoration(
                     labelText: tr("enter_contact_name", context),
                     labelStyle: const TextStyle(
@@ -96,6 +100,7 @@ class _Add_Contact_ScreenState extends State<Add_Contact_Screen> {
                 height: 10,
               ),
               TextFormField(
+                controller: ageController,
                 decoration: InputDecoration(
                     labelText: tr("enter_contact_age", context),
                     prefixIcon: const Icon(Icons.account_circle),
@@ -120,6 +125,7 @@ class _Add_Contact_ScreenState extends State<Add_Contact_Screen> {
                 height: 10,
               ),
               TextFormField(
+                controller: relationController,
                 decoration: InputDecoration(
                     labelText: tr("enter_relation", context),
                     prefixIcon: const Icon(Icons.account_circle),
@@ -133,7 +139,7 @@ class _Add_Contact_ScreenState extends State<Add_Contact_Screen> {
                 height: 40,
               ),
               InkWell(
-                onTap: (){
+                onTap: () {
                   TakeImage();
                 },
                 child: Row(
@@ -157,10 +163,8 @@ class _Add_Contact_ScreenState extends State<Add_Contact_Screen> {
                             thickness: 1.5,
                             width: 0,
                             color: Colors.black,
-
                           ),
                         ),
-
                         SizedBox(
                           height: 20,
                         ),
@@ -183,22 +187,23 @@ class _Add_Contact_ScreenState extends State<Add_Contact_Screen> {
                       ],
                     ),
                     SizedBox(
-                      width: MediaQuery.of(context).size.width*.78,
+                      width: MediaQuery.of(context).size.width * .78,
                       height: 48,
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text(tr("take_photo", context),style:const TextStyle(
-                              fontWeight: FontWeight.w400,
-                              fontSize: 16,
-                              color: Color(0xff585858)
-                          ),),
+                          Text(
+                            tr("take_photo", context),
+                            style: const TextStyle(
+                                fontWeight: FontWeight.w400,
+                                fontSize: 16,
+                                color: Color(0xff585858)),
+                          ),
                           Image.asset('assets/images/camera.png')
-
                         ],
                       ),
                     ),
-                    const  Column(
+                    const Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.end,
                       children: [
@@ -221,13 +226,11 @@ class _Add_Contact_ScreenState extends State<Add_Contact_Screen> {
                             ),
                           ),
                         ),
-
                         SizedBox(
                           height: 20,
                         ),
-
                         Padding(
-                          padding: EdgeInsets.only(right:1.5),
+                          padding: EdgeInsets.only(right: 1.5),
                           child: SizedBox(
                             height: 20,
                             child: VerticalDivider(
@@ -257,7 +260,7 @@ class _Add_Contact_ScreenState extends State<Add_Contact_Screen> {
                 height: 35,
               ),
               InkWell(
-                onTap: (){
+                onTap: () {
                   upLoadImage();
                 },
                 child: Row(
@@ -281,10 +284,8 @@ class _Add_Contact_ScreenState extends State<Add_Contact_Screen> {
                             thickness: 1.5,
                             width: 0,
                             color: Colors.black,
-
                           ),
                         ),
-
                         SizedBox(
                           height: 20,
                         ),
@@ -307,22 +308,23 @@ class _Add_Contact_ScreenState extends State<Add_Contact_Screen> {
                       ],
                     ),
                     SizedBox(
-                      width: MediaQuery.of(context).size.width*.78,
+                      width: MediaQuery.of(context).size.width * .78,
                       height: 48,
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text(tr("upload_photo", context),style:const TextStyle(
-                              fontWeight: FontWeight.w400,
-                              fontSize: 16,
-                              color: Color(0xff585858)
-                          ),),
+                          Text(
+                            tr("upload_photo", context),
+                            style: const TextStyle(
+                                fontWeight: FontWeight.w400,
+                                fontSize: 16,
+                                color: Color(0xff585858)),
+                          ),
                           Image.asset('assets/images/gallery.png')
-
                         ],
                       ),
                     ),
-                    const  Column(
+                    const Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.end,
                       children: [
@@ -345,13 +347,11 @@ class _Add_Contact_ScreenState extends State<Add_Contact_Screen> {
                             ),
                           ),
                         ),
-
                         SizedBox(
                           height: 20,
                         ),
-
                         Padding(
-                          padding: EdgeInsets.only(right:1.5),
+                          padding: EdgeInsets.only(right: 1.5),
                           child: SizedBox(
                             height: 20,
                             child: VerticalDivider(

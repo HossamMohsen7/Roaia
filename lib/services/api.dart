@@ -3,6 +3,7 @@ import "dart:io";
 
 import "package:http/http.dart" as http;
 import "package:roaia/models/api_result.dart";
+import "package:roaia/models/contact.dart";
 import "package:roaia/models/login_response.dart";
 
 class Api {
@@ -116,6 +117,50 @@ class Api {
         'Content-Type': 'application/json; charset=UTF-8',
       },
     );
+    if (response.statusCode == 200) {
+      return ApiResult.success(null);
+    } else {
+      return ApiResult.error(response.body);
+    }
+  }
+
+  static Future<ApiResult<List<Contact>>> getContacts(
+      {required String token}) async {
+    final response = await http.get(
+      Uri.parse(
+          '${baseUrl}/api/Account/getAllContacts/08e35bb4-352b-41d9-94f6-0ef8ce'),
+      headers: {'Authorization': 'Bearer ${token}'},
+    );
+    if (response.statusCode == 200) {
+      final List<dynamic> data = jsonDecode(response.body);
+      return ApiResult.success(data.map((e) => Contact.fromJson(e)).toList());
+    } else {
+      return ApiResult.error(response.body);
+    }
+  }
+
+  static Future<ApiResult<void>> addContact({
+    required String token,
+    required String fullName,
+    required int age,
+    required String relation,
+    required String glassesId,
+    File? image,
+  }) async {
+    final request = http.MultipartRequest(
+        "POST", Uri.parse('${baseUrl}/api/Account/AddContact'));
+    request.headers['Authorization'] = 'Bearer ${token}';
+    request.fields['Name'] = fullName;
+    request.fields['Age'] = age.toString();
+    request.fields['Relation'] = relation;
+    request.fields['BlindId'] = "08e35bb4-352b-41d9-94f6-0ef8ce";
+
+    if (image != null) {
+      request.files.add(http.MultipartFile.fromBytes(
+          "ImageUpload", image.readAsBytesSync(),
+          filename: image.path));
+    }
+    final response = await http.Response.fromStream(await request.send());
     if (response.statusCode == 200) {
       return ApiResult.success(null);
     } else {
