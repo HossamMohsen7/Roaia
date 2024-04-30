@@ -9,7 +9,7 @@ import "package:roaia/models/login_response.dart";
 class Api {
   const Api._();
 
-  static const String baseUrl = 'http://www.roaiaofficial.somee.com';
+  static const String baseUrl = 'https://www.roaiaofficial.somee.com';
 
   static Future<ApiResult<LoginResponse>> login({
     required String email,
@@ -46,9 +46,9 @@ class Api {
   }) async {
     final request =
         http.MultipartRequest("POST", Uri.parse('$baseUrl/api/Auth/register'));
-    request.fields['FirstName'] = username;
-    request.fields['LastName'] = email;
-    request.fields['Username'] = password;
+    request.fields['FirstName'] = firstName;
+    request.fields['LastName'] = lastName;
+    request.fields['Username'] = username;
     request.fields['BlindId'] = id;
     request.fields['Email'] = email;
     request.fields['Password'] = password;
@@ -61,6 +61,8 @@ class Api {
     }
 
     final response = await http.Response.fromStream(await request.send());
+    print(response.body);
+    print(response.statusCode);
     if (response.statusCode == 200) {
       return ApiResult.success(
           LoginResponse.fromJson(jsonDecode(response.body)));
